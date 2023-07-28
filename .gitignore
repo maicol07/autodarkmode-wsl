@@ -5,4 +5,6 @@
 !.gitignore
 !adm.sh
 !functions.sh
+!adm.fish
+!functions.fish
 !README.md

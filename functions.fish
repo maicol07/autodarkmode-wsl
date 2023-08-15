@@ -24,7 +24,8 @@ end >> $LOGPATH
 
 # if arg is 0 or 1 set it as WINTHEME
 # Otherwise, find out wintheme value from windows registry
-if test (count $argv) -ne 0 -a \( $argv[1] -eq 0 -o $argv[1] -eq 1 \)
+if test (count $argv) -ne 0
+    and test \( $argv[1] -eq 0 -o $argv[1] -eq 1 \)
     # convert command line arg to int
     set WINTHEME (math $argv[1] + 0)
     echo "INFO: Called from AutoDarkMode with arg $WINTHEME" >> $LOGPATH

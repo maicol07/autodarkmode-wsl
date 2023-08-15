@@ -63,13 +63,17 @@ function linkconfig
         # unlink $config_file
     end
     set target ([ "$WINTHEME" -eq 0 ] && echo $dark_conf_file || echo $light_conf_file)
+    # Don't symlink if target is already a symlink
+    if ! test -L $target
+        return
+    end
     switch $mode
         case hard
-            ln "$target" "$config_file"
+            ln -n "$target" "$config_file"
         case soft
-            ln -s "$target" "$config_file"
+            ln -ns "$target" "$config_file"
         case copy
-            cp "$target" "$config_file"
+            cp -f "$target" "$config_file"
         case '*'
             echo "ERROR: Invalid mode $mode" >> $LOGPATH
             return

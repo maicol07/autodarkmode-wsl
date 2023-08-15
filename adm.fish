@@ -17,24 +17,29 @@
 #         Valid arguments are 0 (Dark) or 1 (Light).
 
 # pass command line argument to functions.sh
-if test \( (count $argv) -ne 0 \) -a \( $argv[1] -eq 0 -o $argv[1] -eq 1 \)
-    source (dirname "$0")/functions.fish $argv[1]
+set -l scripts_directory (dirname (status --current-filename))
+
+set -l arg1 $argv[1] # 0 or 1 or null
+
+if test (count $argv) -ne 0
+    and test $argv[1] -eq 0 -o $argv[1] -eq 1
+    source $scripts_directory/functions.fish $argv[1]
 else
-    source (dirname "$0")/functions.fish
+    source $scripts_directory/functions.fish
 end
 
 # Set program connfig paths
-set -l LAZYGIT_CONFIG ~/.config/lazygit/{config.yml,light.yml,dark.yml}
+# set -l LAZYGIT_CONFIG ~/.config/lazygit/{config.yml,light.yml,dark.yml}
 # NVIM_CONFIG=(~/.config/nvim/lua/user/{colorscheme.lua,tokyonight.light.lua,tokyonight.dark.lua})
-set -l BAT_CONFIG ~/.config/bat/{bat.conf,light.conf,dark.conf}
+# set -l BAT_CONFIG ~/.config/bat/{bat.conf,light.conf,dark.conf}
 # TMUX_CONFIG=(~/.config/tmux/{tokyonight.tmux,tokyonight_day.tmux,tokyonight_night.tmux})
 set -l GLOW_CONFIG ~/.config/glow/{glow.yml,light.yml,dark.yml}
 # IPYTHON_CONFIG=(~/.ipython/profile_default/{ipython_config.py,light.py,dark.py})
 set -l GTKTHEME_CONFIG Fluent
 
 # Corresponding functions are defined in ./functions.sh
-linkconfig $LAZYGIT_CONFIG soft
-linkconfig $BAT_CONFIG soft
+# linkconfig $LAZYGIT_CONFIG soft
+# linkconfig $BAT_CONFIG soft
 linkconfig $GLOW_CONFIG soft
 # linkconfig "${IPYTHON_CONFIG[@]}" soft
 # linkconfig "${TMUX_CONFIG[@]}" soft
